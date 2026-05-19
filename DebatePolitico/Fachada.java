@@ -31,8 +31,8 @@ public class Fachada {
         gerenciador.sortearInquiridor();
     }
 
-    public void definirInquirido(int idCandidato){
-        gerenciador.definirInquirido(idCandidato);
+    public String definirInquirido(int idCandidato){
+        return gerenciador.definirInquirido(idCandidato);
     }
 
     public void iniciarDebate(){
@@ -48,6 +48,7 @@ public class Fachada {
     public void avancarEtapa(){
         gerenciador.proximaAcao();
     }
+    public void iniciarFase(int tempo) {gerenciador.iniciarFase(tempo);}
 
     public void finalizarDebate(){
         gerenciador.registrarAcao("Debate finalizado");

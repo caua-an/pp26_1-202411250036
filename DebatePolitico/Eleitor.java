@@ -10,7 +10,7 @@ public class Eleitor implements Observer{
 
     @Override
     public void atualizar(String mensagem) {
-        System.out.println("Eleitor " + this.nome + "recebeu " + mensagem);
+        System.out.println("Eleitor " + this.nome + " recebeu: " + mensagem + "\n");
 
     }
 }

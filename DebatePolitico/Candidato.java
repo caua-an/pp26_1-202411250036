@@ -44,7 +44,7 @@ public class Candidato implements Subject{
     public void notificarObservers() {
         String mensagem;
 
-        mensagem = ("Candidato " + this.cand_nome + "esta falando");
+        mensagem = ("Candidato " + this.cand_nome + " esta falando");
 
         for(Observer observer : observers){
             observer.atualizar(mensagem);

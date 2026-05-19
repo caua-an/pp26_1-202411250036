@@ -9,7 +9,7 @@ public class Cronometro extends Colaborador{
 
         while(this.tempoAtual > 0){
             try {
-                TimeUnit.SECONDS.sleep(1);
+                TimeUnit.MILLISECONDS.sleep(100);
             } catch (InterruptedException e) {
                 throw new RuntimeException("Erro na setagem do tempo do cronômetro.", e);
             }
