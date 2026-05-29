@@ -107,5 +107,13 @@ public class GerenciadorDebate implements Mediador{
         logger.registrar(acao);
     }
 
+    public void vincularEleitor(Eleitor eleitor_p, Candidato candidato_p){
+        candidato_p.adicionarObserver(eleitor_p);
+    }
+
+    public void desvincularEleitor(Eleitor eleitor_p, Candidato candidato_p){
+        candidato_p.removerObserver(eleitor_p);
+    }
+
 
 }

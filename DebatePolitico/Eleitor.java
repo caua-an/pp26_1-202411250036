@@ -1,10 +1,8 @@
 public class Eleitor implements Observer{
     private String nome;
-    private Candidato cand_escolhido;
 
-    public Eleitor(String p_nome, Candidato p_candidato){
+    public Eleitor(String p_nome){
         this.nome = p_nome;
-        this.cand_escolhido = p_candidato;
     }
 
 
