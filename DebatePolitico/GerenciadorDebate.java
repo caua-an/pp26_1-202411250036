@@ -91,13 +91,12 @@ public class GerenciadorDebate implements Mediador{
     public void proximaAcao(){
         if(this.faseAtual.equals("PERGUNTA")){
             this.faseAtual = "RESPOSTA";
-            iniciarFase(20);
+
         } else if (this.faseAtual.equals("RESPOSTA")) {
             this.faseAtual = "REPLICA";
-            iniciarFase(30);
         } else if (this.faseAtual.equals("REPLICA")) {
             this.faseAtual = "TREPLICA";
-            iniciarFase(10);
+
         } else if (this.faseAtual.equals("TREPLICA")) {
             logger.registrar("Rodada finalizada");
         }
@@ -105,6 +104,14 @@ public class GerenciadorDebate implements Mediador{
 
     public void registrarAcao(String acao){
         logger.registrar(acao);
+    }
+
+    public void vincularEleitor(Eleitor eleitor_p, Candidato candidato_p){
+        candidato_p.adicionarObserver(eleitor_p);
+    }
+
+    public void desvincularEleitor(Eleitor eleitor_p, Candidato candidato_p){
+        candidato_p.removerObserver(eleitor_p);
     }
 
 

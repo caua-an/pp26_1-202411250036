@@ -1,10 +1,8 @@
-public class Eleitor implements Observer{
+public class Eleitor implements Observer,Prototype{
     private String nome;
-    private Candidato cand_escolhido;
 
-    public Eleitor(String p_nome, Candidato p_candidato){
+    public Eleitor(String p_nome){
         this.nome = p_nome;
-        this.cand_escolhido = p_candidato;
     }
 
 
@@ -12,5 +10,18 @@ public class Eleitor implements Observer{
     public void atualizar(String mensagem) {
         System.out.println("Eleitor " + this.nome + " recebeu: " + mensagem + "\n");
 
+    }
+
+    @Override
+    public Eleitor clonar_prot() {
+        return new Eleitor(this.nome);
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

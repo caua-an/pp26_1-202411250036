@@ -45,6 +45,13 @@ public class Fachada {
         gerenciador.sortearInquiridor();
     }
 
+    public void vincularEleitor(Eleitor e_p, Candidato cand_p){
+        gerenciador.vincularEleitor(e_p, cand_p);
+    }
+    public void desvincularEleitor(Eleitor e_p, Candidato cand_p){
+        gerenciador.desvincularEleitor(e_p, cand_p);
+    }
+
     public void avancarEtapa(){
         gerenciador.proximaAcao();
     }
