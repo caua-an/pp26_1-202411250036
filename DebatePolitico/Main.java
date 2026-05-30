@@ -31,24 +31,16 @@ public class Main {
     // =========================
     // ELEITORES
     // =========================
-
-    Eleitor eleitor1 =
-            new Eleitor("Joao", candidato1);
-
-    Eleitor eleitor2 =
-            new Eleitor("Ana", candidato1);
-
-    Eleitor eleitor3 =
-            new Eleitor("Pedro", candidato2);
-
-    // =========================
-    // OBSERVERS
-    // =========================
-
-    candidato1.adicionarObserver(eleitor1);
-    candidato1.adicionarObserver(eleitor2);
-
-    candidato2.adicionarObserver(eleitor3);
+    // cria o eleitor prototipo a ser seguido
+    Eleitor eleitor_base = new Eleitor("Modelo");
+    // clona o modelo proto
+    Eleitor e1 = eleitor_base.clonar_prot();
+    Eleitor e2 = eleitor_base.clonar_prot();
+    Eleitor e3 = eleitor_base.clonar_prot();
+    // cria suas variantes
+    e1.setNome("Maria");
+    e2.setNome("Jonas");
+    e3.setNome("Eduardo");
 
     // =========================
     // LISTA DE CANDIDATOS
@@ -89,6 +81,10 @@ public class Main {
     } else {
         fachada.iniciarFase(10);
     }
+
+    fachada.vincularEleitor(e1, candidato1);
+    fachada.vincularEleitor(e2, candidato1);
+    fachada.vincularEleitor(e3, candidato2);
 
     System.out.println("RELATORIO FINAL:");
     fachada.finalizarDebate();
