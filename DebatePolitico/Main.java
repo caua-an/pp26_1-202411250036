@@ -31,6 +31,7 @@ public class Main {
     // =========================
     // ELEITORES
     // =========================
+
     // cria o eleitor prototipo a ser seguido
     Eleitor eleitor_base = new Eleitor("Modelo");
     // clona o modelo proto
@@ -68,6 +69,9 @@ public class Main {
     // =========================
     // INICIA DEBATE
     // =========================
+    fachada.vincularEleitor(e1, candidato1);
+    fachada.vincularEleitor(e2, candidato1);
+    fachada.vincularEleitor(e3, candidato2);
 
     fachada.iniciarDebate();
     String erro = fachada.definirInquirido(2);
@@ -79,12 +83,17 @@ public class Main {
     if(erro != null){
         System.out.println(erro);
     } else {
+        // inicia fase pergunta
+        fachada.iniciarFase(10);
+        // inicia fase resposta
+        fachada.iniciarFase(10);
+        // inicia fase replica
+        fachada.iniciarFase(10);
+        // inicia fase treplica
         fachada.iniciarFase(10);
     }
 
-    fachada.vincularEleitor(e1, candidato1);
-    fachada.vincularEleitor(e2, candidato1);
-    fachada.vincularEleitor(e3, candidato2);
+
 
     System.out.println("RELATORIO FINAL:");
     fachada.finalizarDebate();
