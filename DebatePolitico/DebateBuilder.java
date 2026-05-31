@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class DebateBuilder {
     // set padrões pro builder
-    private List<Candidato> candidatosList;
-    private List<Microfone> microfonesList;
+    private List<Candidato> candidatosList = new ArrayList<>();
+    private List<Microfone> microfonesList = new ArrayList<>();
     private Eleitor eleitor_modelo = new Eleitor("modelo");
     private Fachada fachada = Fachada.getInstance();
 
@@ -13,6 +14,7 @@ public class DebateBuilder {
         Microfone mic = new Microfone(cont_mic++);
         microfonesList.add(mic);
         candidatosList.add(new Candidato(id, nome, mic));
+        fachada.configurarDebate(candidatosList);
         return this;
     }
     public DebateBuilder addEleitor(String nome, int id_cand){
@@ -34,6 +36,10 @@ public class DebateBuilder {
         }
 
         return this;
+
+    }
+    public Fachada build(){
+        return fachada;
     }
 
 }
