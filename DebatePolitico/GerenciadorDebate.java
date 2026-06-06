@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class GerenciadorDebate implements Mediador{
     protected List<Candidato> candidatos;
@@ -13,13 +11,17 @@ public class GerenciadorDebate implements Mediador{
 
     private Random randomizador;
 
+    private Queue<Candidato> solicitacoesDR;
+    private Queue<Candidato> DRConcedidos;
+
     public GerenciadorDebate(){
-        // atributos necessarios/obrigatorios para o gerenciador funcionar
         this.cronometro = new Cronometro();
         this.logger = new Logger();
         this.randomizador = new Random();
         this.candidatos = new ArrayList<>();
         this.cronometro.setMediador(this);
+        this.solicitacoesDR = new LinkedList<>();
+        this.DRConcedidos = new LinkedList<>();
 
 
     }
@@ -114,5 +116,24 @@ public class GerenciadorDebate implements Mediador{
         candidato_p.removerObserver(eleitor_p);
     }
 
+    public void solicitarDR(Candidato candidato_p){
+        // if para que o candidato não habilite o DR varias vezes
+        if(!solicitacoesDR.contains(candidato_p)){
+            solicitacoesDR.add(candidato_p);
+        }
 
+        logger.registrar(candidato_p.getNome() + " solicitou o Direito de Resposta");
+    }
+
+    public boolean possuiSolicitacoesDR(){
+        if(solicitacoesDR.isEmpty()){
+            return false;
+        }
+
+        return true;
+    }
+
+    public Queue<Candidato> getSolicitacoesDR() {
+        return solicitacoesDR;
+    }
 }
