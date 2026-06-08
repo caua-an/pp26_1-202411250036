@@ -13,6 +13,8 @@ public class GerenciadorDebate implements Mediador{
 
     private Queue<Candidato> solicitacoesDR;
     private Queue<Candidato> DRConcedidos;
+    private DebateState estadoatual;
+
 
     public GerenciadorDebate(){
         this.cronometro = new Cronometro();
@@ -22,6 +24,7 @@ public class GerenciadorDebate implements Mediador{
         this.cronometro.setMediador(this);
         this.solicitacoesDR = new LinkedList<>();
         this.DRConcedidos = new LinkedList<>();
+        this.estadoatual = new EstadoNormal();
 
 
     }
@@ -101,6 +104,7 @@ public class GerenciadorDebate implements Mediador{
 
         } else if (this.faseAtual.equals("TREPLICA")) {
             logger.registrar("Rodada finalizada");
+            estadoatual.passarRodada(this);
         }
     }
 
@@ -135,5 +139,9 @@ public class GerenciadorDebate implements Mediador{
 
     public Queue<Candidato> getSolicitacoesDR() {
         return solicitacoesDR;
+    }
+
+    public void setEstadoatual(DebateState estadoatual) {
+        this.estadoatual = estadoatual;
     }
 }
