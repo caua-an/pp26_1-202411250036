@@ -4,7 +4,7 @@ public class Microfone {
     private boolean est_ligado;
     private GerenciadorDebate debate;
 
-    public Microfone(int p_id, GerenciadorDebate debate_p, Candidato dono_p){
+    public Microfone(int p_id, GerenciadorDebate debate_p){
         this.id_mic = p_id;
         this.est_ligado = false;
         this.debate = debate_p;

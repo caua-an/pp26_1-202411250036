@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class GerenciadorDebate implements Mediador{
     protected List<Candidato> candidatos;
@@ -12,7 +13,6 @@ public class GerenciadorDebate implements Mediador{
     private Random randomizador;
 
     private Queue<Candidato> solicitacoesDR;
-    private Queue<Candidato> DRConcedidos;
     private DebateState estadoatual;
 
 
@@ -23,7 +23,6 @@ public class GerenciadorDebate implements Mediador{
         this.candidatos = new ArrayList<>();
         this.cronometro.setMediador(this);
         this.solicitacoesDR = new LinkedList<>();
-        this.DRConcedidos = new LinkedList<>();
         this.estadoatual = new EstadoNormal();
 
 
@@ -143,5 +142,28 @@ public class GerenciadorDebate implements Mediador{
 
     public void setEstadoatual(DebateState estadoatual) {
         this.estadoatual = estadoatual;
+    }
+
+    public void executarEstadoAtual(){
+        estadoatual.passarRodada(this);
+    }
+    public void executarDR() {
+        while(!solicitacoesDR.isEmpty()){
+            // pega o primeiro candidato da fila
+            Candidato candidato = solicitacoesDR.poll();
+
+            logger.registrar("DR concedido para: "+ candidato.getNome());
+
+            candidato.notificarObservers();
+            candidato.cand_mic.ligar();
+
+            try {
+                TimeUnit.MILLISECONDS.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            candidato.cand_mic.desligar();
+        }
     }
 }
