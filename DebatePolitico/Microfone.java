@@ -2,11 +2,12 @@ public class Microfone {
 
     private int id_mic;
     private boolean est_ligado;
+    private GerenciadorDebate debate;
 
-    // construtor do Microfone necessita no minimo um id para instanciar
-    public Microfone(int p_id){
+    public Microfone(int p_id, GerenciadorDebate debate_p){
         this.id_mic = p_id;
         this.est_ligado = false;
+        this.debate = debate_p;
     }
     // metodos on/off
     public void ligar(){
@@ -14,6 +15,11 @@ public class Microfone {
     }
     public void desligar(){
         this.est_ligado = false;
+    }
+
+    // adiciona o candidato a lista de DR
+    public void pressionarDR(Candidato cand_p){
+        debate.solicitarDR(cand_p);
     }
 
 }

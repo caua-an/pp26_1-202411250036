@@ -11,7 +11,7 @@ public class DebateBuilder {
     private int cont_mic = 0;
 
     public DebateBuilder addCandidato(int id, String nome){
-        Microfone mic = new Microfone(cont_mic++);
+        Microfone mic = new Microfone(cont_mic++, fachada.getGerenciador());
         microfonesList.add(mic);
         candidatosList.add(new Candidato(id, nome, mic));
         fachada.configurarDebate(candidatosList);

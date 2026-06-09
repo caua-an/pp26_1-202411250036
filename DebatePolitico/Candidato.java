@@ -50,4 +50,8 @@ public class Candidato implements Subject{
             observer.atualizar(mensagem);
         }
     }
+
+    public void solicitarDR(){
+        cand_mic.pressionarDR(this);
+    }
 }

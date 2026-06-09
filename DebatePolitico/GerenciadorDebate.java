@@ -1,6 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class GerenciadorDebate implements Mediador{
     protected List<Candidato> candidatos;
@@ -13,13 +12,18 @@ public class GerenciadorDebate implements Mediador{
 
     private Random randomizador;
 
+    private Queue<Candidato> solicitacoesDR;
+    private DebateState estadoatual;
+
+
     public GerenciadorDebate(){
-        // atributos necessarios/obrigatorios para o gerenciador funcionar
         this.cronometro = new Cronometro();
         this.logger = new Logger();
         this.randomizador = new Random();
         this.candidatos = new ArrayList<>();
         this.cronometro.setMediador(this);
+        this.solicitacoesDR = new LinkedList<>();
+        this.estadoatual = new EstadoNormal();
 
 
     }
@@ -99,6 +103,7 @@ public class GerenciadorDebate implements Mediador{
 
         } else if (this.faseAtual.equals("TREPLICA")) {
             logger.registrar("Rodada finalizada");
+            estadoatual.passarRodada(this);
         }
     }
 
@@ -114,5 +119,52 @@ public class GerenciadorDebate implements Mediador{
         candidato_p.removerObserver(eleitor_p);
     }
 
+    public void solicitarDR(Candidato candidato_p){
+        // if para que o candidato não habilite o DR varias vezes
+        if(!solicitacoesDR.contains(candidato_p)){
+            solicitacoesDR.add(candidato_p);
+        }
 
+        logger.registrar(candidato_p.getNome() + " solicitou o Direito de Resposta");
+    }
+
+    public boolean possuiSolicitacoesDR(){
+        if(solicitacoesDR.isEmpty()){
+            return false;
+        }
+
+        return true;
+    }
+
+    public Queue<Candidato> getSolicitacoesDR() {
+        return solicitacoesDR;
+    }
+
+    public void setEstadoatual(DebateState estadoatual) {
+        this.estadoatual = estadoatual;
+    }
+
+    public void executarEstadoAtual(){
+        estadoatual.passarRodada(this);
+    }
+
+    public void executarDR() {
+        while(!solicitacoesDR.isEmpty()){
+            // pega o primeiro candidato da fila
+            Candidato candidato = solicitacoesDR.poll();
+
+            logger.registrar("DR concedido para: "+ candidato.getNome());
+
+            candidato.notificarObservers();
+            candidato.cand_mic.ligar();
+
+            try {
+                TimeUnit.MILLISECONDS.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            candidato.cand_mic.desligar();
+        }
+    }
 }
