@@ -147,6 +147,7 @@ public class GerenciadorDebate implements Mediador{
     public void executarEstadoAtual(){
         estadoatual.passarRodada(this);
     }
+
     public void executarDR() {
         while(!solicitacoesDR.isEmpty()){
             // pega o primeiro candidato da fila

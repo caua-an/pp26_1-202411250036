@@ -61,4 +61,9 @@ public class Fachada {
         gerenciador.registrarAcao("Debate finalizado");
         gerenciador.logger.gerarRelatorio();
     }
+
+    // Expor o gerenciador para que builders possa vinculá-lo (Microfone)
+    public GerenciadorDebate getGerenciador(){
+        return this.gerenciador;
+    }
 }

@@ -11,9 +11,8 @@ public class EstadoNormal implements DebateState{
 
         } else {
             debate.registrarAcao("Rodada encerrada sem DR");
+            debate.sortearInquiridor();
         }
-
-        debate.sortearInquiridor();
 
 
     }
